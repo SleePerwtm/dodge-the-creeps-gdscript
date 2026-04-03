@@ -32,13 +32,13 @@ func _process(delta: float) -> void:
 	position = position.clamp(Vector2.ZERO, screen_size)
 
 	# 根据运动状况设置动画的播放
-	if velocity.x != 0:
-		$AnimatedSprite2D.play(&"walk")
-		$AnimatedSprite2D.flip_v = velocity.y > 0
+	var moving := velocity.length() > 0
+	if moving:
+		var anim := &"walk" if velocity.x != 0 else &"up"
+		$AnimatedSprite2D.play(anim)
 		$AnimatedSprite2D.flip_h = velocity.x < 0
-	elif velocity.y != 0:
-		$AnimatedSprite2D.play(&"up")
-		$AnimatedSprite2D.flip_v = velocity.y > 0
+		if velocity.y != 0:
+			$AnimatedSprite2D.flip_v = velocity.y > 0
 	else:
 		$AnimatedSprite2D.stop()
 
