@@ -1,9 +1,10 @@
-[gd_scene format=3 uid="uid://dmak085flf5ri"]
+[gd_scene format=4 uid="uid://dmak085flf5ri"]
 
 [ext_resource type="Script" uid="uid://chxbkvseo60is" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://bk5ulsge27ktx" path="res://player.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://db537mymh55i" path="res://mob.tscn" id="2_h2yge"]
 [ext_resource type="PackedScene" uid="uid://8w0ixibbbs6c" path="res://hud.tscn" id="4_1bvp3"]
+[ext_resource type="AudioStream" uid="uid://d3hcejbw8p0a4" path="res://dodge_the_creeps_2d_assets/art/gameover.wav" id="5_lquwl"]
 
 [sub_resource type="Curve2D" id="Curve2D_h2yge"]
 _data = {
@@ -14,6 +15,14 @@ point_count = 5
 [node name="Main" type="Node" unique_id=147853965]
 script = ExtResource("1_0xm2m")
 mob_scene = ExtResource("2_h2yge")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1687938054]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.2353647, 0.3648761, 1)
 
 [node name="Player" parent="." unique_id=2146084521 instance=ExtResource("1_ig7tw")]
 position = Vector2(288, 280)
@@ -36,6 +45,12 @@ curve = SubResource("Curve2D_h2yge")
 [node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath" unique_id=477103338]
 
 [node name="HUD" parent="." unique_id=975944455 instance=ExtResource("4_1bvp3")]
+
+[node name="Music" type="AudioStreamPlayer" parent="." unique_id=589640794]
+stream = SubResource("AudioStreamOggVorbis_7mycd")
+
+[node name="DeathSound" type="AudioStreamPlayer" parent="." unique_id=1246305284]
+stream = ExtResource("5_lquwl")
 
 [connection signal="hit" from="Player" to="." method="game_over"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
